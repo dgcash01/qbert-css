@@ -1,58 +1,74 @@
 body {
-  height: 100vh;
-  width: 100vw;
+  padding: 0px;
+  margin: 0px;
+}
+.title {
+  font-size: 2em;
+  color: mediumslateblue;
+  border: 2px solid green;
+}
+.qbertcanvas {
+  background-color: darkslategray;
+  height: 900px;
+  width: 2000px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.pyramid {  
+  height: 100%;
+  max-width: 100%;
+  transform: scale(.65, .65);
 }
 .cubesize {
   height: 100%;
   width: 90%;
   display: flex;
   flex-direction: column;
-  border: 2px solid green;
   align-items: center;
 }
 .row {
   display: flex;
   justify-content: center;
-  height: 12%;
-  width: 50%;
-  border: 2px solid orange;
+  height: 100%;
+  width: 100%;
+  /* border: 2px solid orange; */
 }
-/* .front{
-  width: 250px;
-  height: 50%;
-  display: flex;
-  justify-content: center;
-  border: 2px solid teal;
-} */
 .cube {
   font-size: 3.5em;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   height: 100%;
-  width: 16%;
-  border: 2px solid pink;
+  width: 8%;
+  /* border: 2px solid pink; */
 }
 .side {
   position: absolute;
   width: 100px;
   height: 100px;
-  background: gray;
+  background: goldenrod;
   border: 1px solid black;
   color: white;
   text-align: center;
   /* line-height: 100px; */
-  margin: 0px;
+  /* margin: 0px; */
 }
 .right {
   transform: rotateX(-45deg) rotateY(45deg) rotateZ(0deg) translateZ(50px);
   z-index: 1000;
+  background: navy;
 }
 .top {
   transform: rotateX(-45deg) rotateY(45deg) rotateX(90deg) translateZ(50px);
   z-index: 1000;
+  background: goldenrod
 }
 .left {
   transform: rotateX(-45deg) rotateY(45deg) rotateY(-90deg) translateZ(50px);
   z-index: 1000;
+  background: cornflowerblue;
 }

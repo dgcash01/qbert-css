@@ -17,15 +17,81 @@ body {
   right: 0;
   top: 0;
   bottom: 0;
+  z-index: -1000;
 }
 .pyramid {  
   height: 100%;
   max-width: 100%;
   transform: scale(.65, .65);
 }
+.qbertcanvas {
+  background-color: darkslategray;
+  height: 900px;
+  width: 1500px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+}
+.qbert {
+  background-color: red;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  position: relative;
+  top: 140px;
+  left: 721px;
+  animation: bounce 0.9s infinite;
+  z-index: 1000;
+}
+@keyframes bounce {
+  10% {
+    height: 50px;
+    width: 50px;
+  }
+  30% {
+    height: 50px;
+    width: 57px;
+  }
+  50% {
+    height: 30px;
+    width: 57px;
+    transform: translateY(130px);
+  }
+  75% {
+    height: 50px;
+    width: 57px;
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.ballcontainer {
+  height: 50px;
+  width: 57px;
+}
+.shadow {
+  background-color: rgba(25, 25, 25, 0.1);
+  height: 15px;
+  width: 65px;
+  border-radius: 50%;
+  position: relative;
+  top: 240px;
+  left: 717px;
+  z-index: 1;
+  animation: shrink 0.9s infinite;
+}
+@keyframes shrink {
+  50% {
+    transform: scaleX(0.5)
+  }
+}
 .cubesize {
   height: 100%;
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,13 +104,11 @@ body {
   /* border: 2px solid orange; */
 }
 .cube {
-  font-size: 3.5em;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   height: 100%;
-  width: 8%;
-  /* border: 2px solid pink; */
+  width: 9.5%;
 }
 .side {
   position: absolute;
@@ -59,16 +123,16 @@ body {
 }
 .right {
   transform: rotateX(-45deg) rotateY(45deg) rotateZ(0deg) translateZ(50px);
-  z-index: 1000;
+  z-index: 1;
   background: navy;
 }
 .top {
   transform: rotateX(-45deg) rotateY(45deg) rotateX(90deg) translateZ(50px);
-  z-index: 1000;
+  z-index: 1;
   background: goldenrod
 }
 .left {
   transform: rotateX(-45deg) rotateY(45deg) rotateY(-90deg) translateZ(50px);
-  z-index: 1000;
+  z-index: 1;
   background: cornflowerblue;
 }

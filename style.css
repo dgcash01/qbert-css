@@ -8,13 +8,13 @@ body {
   display: flex;
   flex-direction: column;
   border: 2px solid green;
-  /* align-items: center; */
+  align-items: center;
 }
 .row {
   display: flex;
   justify-content: center;
   height: 12%;
-  width: 100%;
+  width: 50%;
   border: 2px solid orange;
 }
 /* .front{
@@ -25,12 +25,12 @@ body {
   border: 2px solid teal;
 } */
 .cube {
-  font-size: 4em;
+  font-size: 3.5em;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   height: 100%;
-  width: 8.3%;
+  width: 16%;
   border: 2px solid pink;
 }
 .side {

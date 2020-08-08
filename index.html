@@ -8,166 +8,258 @@
 </head>
 
 <body>
-  <div class="qbertcanvas">
-    <div class="ballcontainer">
-      <div class="qbert"></div>
+  <div class="manualcontrols">
+    <button onclick="rowColumnReset()">Reset</button>
+    <script>
+      function rowAdd() {
+        for (i = 6; i > 0; i--) {
+          let myElement = document.getElementsByClassName("p1R" + i);
+          if (myElement.length > 0) {
+            myElement = myElement.item(0);
+            myElement.classList.add("p1R" + (i + 1));
+            myElement.classList.remove("p1R" + i);
+          }
+        }
+      }
+      function columnAdd() {
+        rowAdd();
+        for (i = 6; i > 0; i--) {
+          let myElement = document.getElementsByClassName("p1C" + i);
+          if (myElement.length > 0) {
+            myElement = myElement.item(0);
+            myElement.classList.add("p1C" + (i + 1));
+            myElement.classList.remove("p1C" + i);
+          }
+        }
+      }
+      function rowColumnReset() {
+        for (i = 7; i > 0; i--) {
+          let myElement = document.getElementsByClassName("p1C" + i);
+          if (myElement.length > 0) {
+            myElement = myElement.item(0);
+            myElement.classList.remove("p1C" + i);
+          }
+
+          myElement = document.getElementsByClassName("p1R" + i);
+          if (myElement.length > 0) {
+            myElement = myElement.item(0);
+            myElement.classList.remove("p1R" + i);
+          }
+          myElement = document.getElementsByClassName("qbertcanvas");
+          myElement.item(0).classList.add("p1R1");
+          myElement.item(0).classList.add("p1C1");
+        }
+      }
+      function cubeTopClick(ev) {
+        myElement = document.getElementsByClassName("qbertcanvas");
+        //check for validity
+        let clickedRow = 0;
+        let clickedColumn = 0;
+        let playerRow = 0;
+        let playerColumn = 0;
+        for (i = 7; i > 0; i--) {
+          if (~ev.path[1].classList.value.indexOf("cubeR" + i)) {
+            clickedRow = i;
+          }
+          if (~ev.path[1].classList.value.indexOf("cubeC" + i)) {
+            clickedColumn = i;
+          }
+          if (~myElement.item(0).classList.value.indexOf("p1R" + i)) {
+            playerRow = i;
+          }
+          if (~myElement.item(0).classList.value.indexOf("p1C" + i)) {
+            playerColumn = i;
+          }
+        }
+        if (clickedRow == 0 || clickedColumn == 0) return;
+        if (clickedColumn < playerColumn - 1) return;
+        if (clickedColumn < playerColumn && clickedRow > playerRow) return;
+        if (clickedColumn > playerColumn + 1) return;
+        if (clickedRow > playerRow + 1) return;
+        if (clickedRow < playerRow - 1) return;
+        if (clickedRow < playerRow && clickedColumn < playerColumn - 1) return;
+        if (clickedRow < playerRow && clickedColumn > playerColumn) return;
+        if (clickedRow == playerRow && clickedColumn != playerColumn - 1) return;
+        if (clickedRow == playerRow) return;
+
+        rowColumnReset();
+        myElement.item(0).classList.add("p1R" + clickedRow);
+        if (clickedRow > 1) myElement.item(0).classList.remove("p1R1")
+        myElement.item(0).classList.add("p1C" + clickedColumn);
+        if (clickedColumn > 1) myElement.item(0).classList.remove("p1C1")
+        document.getElementsByClassName("qbertcanvas").item(0).classList.add("p1Jumping");
+        setTimeout(function(){
+          let myCubeTop = document.getElementsByClassName("cubeR"+ clickedRow + " cubeC" + clickedColumn + " visited");
+          if (myCubeTop.length > 0) myCubeTop.item(0).classList.add("visitedTwice");
+          myCubeTop = document.getElementsByClassName("cubeR"+ clickedRow + " cubeC" + clickedColumn);
+          if (myCubeTop.length > 0) myCubeTop.item(0).classList.add("visited");
+          document.getElementsByClassName("qbertcanvas").item(0).classList.remove("p1Jumping");
+        }, 300);
+      }
+    </script>
+  </div>
+  <div class="qbertcanvas p1R1 p1C1">
+    <div class="p1">
+      <div class="qbert">
+      </div>
+      <div class="shadow">
+      </div>
     </div>
-    <div class="shadow"></div>
     <div class="pyramid">
       <div class="cubesize">
-        <h1 class="title">Qbert Cubes</h1>
+        <h1 class="title">Qbert</h1>
         <div class="row">
-          <div class="cube">
+          <div class="cube cubeR1 cubeC1">
+            <div class="side right">R1C1</div>
             <div class="side left"></div>
-            <div class="side right"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
         </div>
         <div class="row">
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR2 cubeC1">
+            <div class="side right">R2C1</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR2 cubeC2">
+            <div class="side right">R2C2</div>
             <div class="side left"></div>
-            <div class="side top"></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="cube">
-            <div class="side right"></div>
-            <div class="side left"></div>
-            <div class="side top"></div>
-          </div>
-          <div class="cube">
-            <div class="side right"></div>
-            <div class="side left"></div>
-            <div class="side top"></div>
-          </div>
-          <div class="cube">
-            <div class="side right"></div>
-            <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
         </div>
         <div class="row">
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR3 cubeC1">
+            <div class="side right">R3C1</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR3 cubeC2">
+            <div class="side right">R3C2</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR3 cubeC3">
+            <div class="side right">R3C3</div>
             <div class="side left"></div>
-            <div class="side top"></div>
-          </div>
-          <div class="cube">
-            <div class="side right"></div>
-            <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
         </div>
         <div class="row">
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR4 cubeC1">
+            <div class="side right">R4C1</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR4 cubeC2">
+            <div class="side right">R4C2</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR4 cubeC3">
+            <div class="side right">R4C3</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR4 cubeC4">
+            <div class="side right">R4C4</div>
             <div class="side left"></div>
-            <div class="side top"></div>
-          </div>
-          <div class="cube">
-            <div class="side right"></div>
-            <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
         </div>
         <div class="row">
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR5 cubeC1">
+            <div class="side right">R5C1</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR5 cubeC2">
+            <div class="side right">R5C2</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR5 cubeC3">
+            <div class="side right">R5C3</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR5 cubeC4">
+            <div class="side right">R5C4</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR5 cubeC5">
+            <div class="side right">R5C5</div>
             <div class="side left"></div>
-            <div class="side top"></div>
-          </div>
-          <div class="cube">
-            <div class="side right"></div>
-            <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
         </div>
         <div class="row">
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR6 cubeC1">
+            <div class="side right">R6C1</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR6 cubeC2">
+            <div class="side right">R6C2</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR6 cubeC3">
+            <div class="side right">R6C3</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR6 cubeC4">
+            <div class="side right">R6C4</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR6 cubeC5">
+            <div class="side right">R6C5</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+          <div class="cube cubeR6 cubeC6">
+            <div class="side right">R6C6</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
-          <div class="cube">
-            <div class="side right"></div>
+        </div>
+        <div class="row">
+          <div class="cube cubeR7 cubeC1">
+            <div class="side right">R7C1</div>
             <div class="side left"></div>
-            <div class="side top"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
+          </div>
+          <div class="cube cubeR7 cubeC2">
+            <div class="side right">R7C2</div>
+            <div class="side left"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
+          </div>
+          <div class="cube cubeR7 cubeC3">
+            <div class="side right">R7C3</div>
+            <div class="side left"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
+          </div>
+          <div class="cube cubeR7 cubeC4">
+            <div class="side right">R7C4</div>
+            <div class="side left"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
+          </div>
+          <div class="cube cubeR7 cubeC5">
+            <div class="side right">R7C5</div>
+            <div class="side left"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
+          </div>
+          <div class="cube cubeR7 cubeC6">
+            <div class="side right">R7C6</div>
+            <div class="side left"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
+          </div>
+          <div class="cube cubeR7 cubeC7">
+            <div class="side right">R7C7</div>
+            <div class="side left"></div>
+            <div class="side top" onclick="cubeTopClick(event)"></div>
           </div>
         </div>
       </div>
